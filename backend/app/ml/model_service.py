@@ -102,6 +102,9 @@ class ModelService:
                 )
             )
 
+        import gc
+        gc.collect()
+
         return predicted_class, confidence, all_probs, inference_time_ms
 
     def get_info(self) -> dict:

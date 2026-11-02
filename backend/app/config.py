@@ -4,10 +4,14 @@ from pydantic_settings import BaseSettings
 
 APP_DIR = Path(__file__).resolve().parent.parent
 
-# Set isolated paths before Keras / Matplotlib load
+# Set isolated paths and minimal memory limits before Keras / Matplotlib load
 os.environ["KERAS_HOME"] = str(APP_DIR / ".keras_home")
 os.environ["MPLCONFIGDIR"] = str(APP_DIR / ".matplotlib_home")
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+os.environ["TF_NUM_INTRAOP_THREADS"] = "1"
+os.environ["TF_NUM_INTEROP_THREADS"] = "1"
+os.environ["OMP_NUM_THREADS"] = "1"
 os.makedirs(os.environ["KERAS_HOME"], exist_ok=True)
 os.makedirs(os.environ["MPLCONFIGDIR"], exist_ok=True)
 
