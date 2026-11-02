@@ -19,6 +19,7 @@ COPY . .
 
 RUN mkdir -p uploads outputs reports sample_scans .keras_home .matplotlib_home
 
+ENV PORT=10000
 EXPOSE 10000 8000
 
 CMD ["python", "run.py"]
