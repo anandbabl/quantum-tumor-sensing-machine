@@ -46,8 +46,8 @@ class Settings(BaseSettings):
     GROQ_FALLBACK_MODEL: str = "llama-3.1-8b-instant"
 
     # Server & CORS
-    HOST: str = "0.0.0.0"
-    PORT: int = 8000
+    HOST: str = os.getenv("HOST", "0.0.0.0")
+    PORT: int = int(os.getenv("PORT", 8000))
     CORS_ORIGINS: list[str] = [
         origin.strip()
         for origin in os.getenv(

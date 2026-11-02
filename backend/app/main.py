@@ -71,9 +71,10 @@ async def lifespan(app: FastAPI):
     finally:
         db.close()
 
-    # 3. Load Trained Keras Model into RAM
-    print("🧠 [Quantum Tumor Sensing Engine] Loading trained 96% Keras model into memory...")
-    model_service.load_model()
+    # 3. Load Trained Keras Model in background thread so server binds port immediately
+    import threading
+    print("🧠 [Quantum Tumor Sensing Engine] Initializing model loader in background...")
+    threading.Thread(target=model_service.load_model, daemon=True).start()
 
     print("🚀 [Quantum Tumor Sensing Engine] System ready to receive MRI requests.")
     yield

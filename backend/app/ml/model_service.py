@@ -45,7 +45,7 @@ class ModelService:
             return
 
         try:
-            self.model = keras.models.load_model(model_path)
+            self.model = keras.models.load_model(model_path, compile=False)
             self.is_loaded = True
             self.load_error = None
             print(f"✅ [Quantum Tumor ML] Model successfully loaded into memory!")

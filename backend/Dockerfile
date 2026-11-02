@@ -19,6 +19,6 @@ COPY . .
 
 RUN mkdir -p uploads outputs reports sample_scans .keras_home .matplotlib_home
 
-EXPOSE 8000
+EXPOSE 10000 8000
 
 CMD ["python", "run.py"]
