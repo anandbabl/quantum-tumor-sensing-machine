@@ -74,6 +74,16 @@ export default function Navbar() {
               );
             })}
 
+            {/* 3D Brain Intro Experience Button */}
+            <Link
+              href="/?intro=true"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[13px] font-semibold uppercase tracking-[0.025em] text-[#ffb829] bg-[#0d0d0d] border border-[#ffb829]/30 hover:border-[#ffb829] hover:shadow-[0_0_15px_rgba(255,184,41,0.25)] transition-all duration-200 cursor-pointer group"
+              title="Replay 3D Brain Intro Animation"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#ffb829] group-hover:rotate-12 transition-transform" />
+              <span>3D Intro</span>
+            </Link>
+
             {/* AI Search Button — Immediately beside Settings */}
             <button
               onClick={() => setIsAiSearchOpen(true)}

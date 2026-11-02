@@ -5,6 +5,7 @@ import WorkspaceLayout from "@/components/workspace-layout";
 import AIAssistantPanel from "@/components/ai-assistant-panel";
 import ImageManipulator from "@/components/image-manipulator";
 import MRIScanner from "@/components/mri-scanner";
+import NeuralBrainCanvas from "@/components/neural-brain-canvas";
 import { apiRequest, getAssetUrl, getApiUrl } from "@/lib/api";
 import { MRIScan, Prediction, Patient } from "@/types";
 import confetti from "canvas-confetti";
@@ -489,14 +490,21 @@ export default function AnalyzePage() {
                 </div>
               </div>
             ) : (
-              <div className="h-full min-h-[460px] flex flex-col items-center justify-center text-center p-8 border border-dashed border-[#222222] rounded-[24px]">
-                <Brain className="w-12 h-12 text-[#333333] mb-4" />
-                <h3 className="text-[24px] font-normal text-[#ffffff] tracking-tight">
-                  Awaiting MRI Ingestion
-                </h3>
-                <p className="text-[16px] font-extralight text-[#9a9a9a] max-w-sm mt-2">
-                  Select a test sample or drop a cranial file, then click Analyze MRI Scan to begin deep feature extraction.
-                </p>
+              <div className="w-full h-full min-h-[520px] rounded-[24px] overflow-hidden border border-[#222222] bg-[#030303] relative flex flex-col items-center justify-center shadow-[0_0_50px_rgba(128,82,255,0.15)] group">
+                {/* Real-time 3D Interactive Constellation Brain */}
+                <div className="absolute inset-0 z-0">
+                  <NeuralBrainCanvas />
+                </div>
+                {/* Subtle Floating Status Pill */}
+                <div className="absolute bottom-6 inset-x-0 text-center pointer-events-none z-10 space-y-1">
+                  <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#22d3ee] bg-black/70 px-4 py-1.5 rounded-full border border-[#22d3ee]/30 backdrop-blur-md shadow-lg shadow-[#22d3ee]/10 inline-flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse" />
+                    <span>3D Neural Constellation Active</span>
+                  </span>
+                  <p className="text-[13px] font-extralight text-[#9a9a9a]">
+                    Select a sample slice and click Analyze MRI Scan to begin neural inference
+                  </p>
+                </div>
               </div>
             )}
           </div>
