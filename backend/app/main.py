@@ -71,8 +71,11 @@ async def lifespan(app: FastAPI):
     finally:
         db.close()
 
-    # 3. Model will be loaded lazily on first MRI inference request to maintain ultra-low RAM usage
-    print("🧠 [Quantum Tumor Sensing Engine] Model set to lazy-load on first inference.")
+    # 3. Initialize model service (cloud zero-overhead or local Keras)
+    try:
+        model_service.load_model()
+    except Exception as e:
+        print(f"⚠️ [Quantum Tumor ML] Model init notice: {e}")
 
     print("🚀 [Quantum Tumor Sensing Engine] System ready to receive MRI requests.")
     yield

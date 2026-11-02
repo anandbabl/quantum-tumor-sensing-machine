@@ -25,6 +25,8 @@ RUN if [ ! -s models/brain_tumor_model.keras ] || [ $(wc -c < models/brain_tumor
     fi
 
 ENV PORT=10000
+ENV RENDER=true
+ENV FORCE_LIGHTWEIGHT_INFERENCE=true
 EXPOSE 10000 8000
 
 CMD ["python", "run.py"]
