@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: quantum-tumor-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: quantum_user
+      POSTGRES_PASSWORD: quantum_secure_password
+      POSTGRES_DB: quantum_tumor_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U quantum_user -d quantum_tumor_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: quantum-tumor-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://quantum_user:quantum_secure_password@db:5432/quantum_tumor_db
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - GROQ_MODEL=${GROQ_MODEL:-llama-3.3-70b-versatile}
+      - SECRET_KEY=${SECRET_KEY:-quantum-tumor-sensing-machine-super-secret-key-32-chars-min}
+      - KERAS_HOME=/app/.keras_home
+      - MPLCONFIGDIR=/app/.matplotlib_home
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/outputs:/app/outputs
+      - ./backend/reports:/app/reports
+      - ./backend/models:/app/models
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: quantum-tumor-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:

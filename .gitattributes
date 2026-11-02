@@ -1,0 +1,2 @@
+# Git LFS tracking for trained Keras deep learning model (222 MB)
+*.keras filter=lfs diff=lfs merge=lfs -text
