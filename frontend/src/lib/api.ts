@@ -29,10 +29,21 @@ export async function apiRequest<T = any>(
     headers["Content-Type"] = "application/json";
   }
 
-  const response = await fetch(url, {
-    ...options,
-    headers,
-  });
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      ...options,
+      headers,
+    });
+  } catch (netErr: any) {
+    const rawMsg = netErr?.message || String(netErr);
+    if (rawMsg.includes("Load failed") || rawMsg.includes("Failed to fetch") || rawMsg.includes("NetworkError")) {
+      throw new Error(
+        `Cannot reach backend API at ${API_BASE_URL}. If running in production, ensure your backend Web Service is running on Render and NEXT_PUBLIC_API_URL is configured in your Vercel project settings.`
+      );
+    }
+    throw netErr;
+  }
 
   if (!response.ok) {
     let errorDetail = "An unexpected error occurred";

@@ -25,6 +25,20 @@ class ModelService:
         model_path = settings.MODEL_PATH
         print(f"🔄 [Quantum Tumor ML] Loading trained model from: {model_path}...")
 
+        # Detect missing file or Git LFS text pointer (pointer file is < 100 KB)
+        is_lfs_pointer = os.path.exists(model_path) and os.path.getsize(model_path) < 100_000
+        if not os.path.exists(model_path) or is_lfs_pointer:
+            print(f"⚠️ [Quantum Tumor ML] Model binary missing or Git LFS pointer detected ({os.path.getsize(model_path) if os.path.exists(model_path) else 0} bytes).")
+            print("🔄 [Quantum Tumor ML] Fetching full 221MB trained weights from GitHub LFS...")
+            try:
+                import urllib.request
+                os.makedirs(os.path.dirname(model_path), exist_ok=True)
+                lfs_url = "https://media.githubusercontent.com/media/anandbabl/quantum-tumor-sensing-machine/main/backend/models/brain_tumor_model.keras"
+                urllib.request.urlretrieve(lfs_url, model_path)
+                print(f"✅ [Quantum Tumor ML] Model binary retrieved! Size: {os.path.getsize(model_path)} bytes")
+            except Exception as dl_err:
+                print(f"⚠️ [Quantum Tumor ML] Automatic model download failed: {dl_err}")
+
         if not os.path.exists(model_path):
             self.load_error = f"Model file not found at: {model_path}"
             print(f"❌ [Quantum Tumor ML] {self.load_error}")

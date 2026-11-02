@@ -112,6 +112,17 @@ app.include_router(reports_router, prefix=settings.API_PREFIX)
 app.include_router(admin_router, prefix=settings.API_PREFIX)
 app.include_router(performance_router, prefix=settings.API_PREFIX)
 
+@app.get("/")
+def root():
+    return {
+        "status": "online",
+        "service": settings.PROJECT_NAME,
+        "version": settings.VERSION,
+        "docs": "/docs",
+        "health": "/api/health"
+    }
+
+@app.get("/health")
 @app.get("/api/health")
 def health_check():
     return {
