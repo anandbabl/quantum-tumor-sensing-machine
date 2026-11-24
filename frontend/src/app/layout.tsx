@@ -4,7 +4,7 @@ import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
 
 export const metadata: Metadata = {
-  title: "Heal Your Body Naturally — Neural Diagnostics",
+  title: "Quantum Tumor Sensing Machine — Neural Diagnostics",
   description: "Intelligent brain MRI analysis, EfficientNetB3 deep learning tumor classification, and Grad-CAM spatial explainability.",
 };
 
