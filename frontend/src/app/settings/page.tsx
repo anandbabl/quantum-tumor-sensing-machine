@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import WorkspaceLayout from "@/components/workspace-layout";
 import { useAuth } from "@/lib/auth-context";
 import { apiRequest } from "@/lib/api";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Key, UserCheck, Cpu, CheckCircle2, AlertCircle } from "lucide-react";
 
 export default function SettingsPage() {
   const { user } = useAuth();
@@ -40,33 +40,48 @@ export default function SettingsPage() {
       categoryLabel="Operator Configuration"
       title="System Settings"
       subtitle="Runtime environment, Groq API key configuration, and operational platform specifications."
+      actionText="Analyze Scan"
+      actionHref="/analyze"
     >
-      <div className="space-y-12 max-w-3xl">
+      <div className="space-y-8 max-w-4xl">
         {statusMessage && (
-          <div className="py-3 px-4 border border-[#8052ff] text-[#ffffff] text-[14px]">
-            {statusMessage.text}
+          <div
+            className={`p-4 rounded-2xl liquid-glass flex items-center gap-3 text-xs sm:text-sm font-medium animate-fadeIn ${
+              statusMessage.type === "success"
+                ? "text-emerald-400 border border-emerald-400/30"
+                : "text-rose-400 border border-rose-400/30"
+            }`}
+          >
+            {statusMessage.type === "success" ? (
+              <CheckCircle2 className="w-4 h-4 shrink-0" />
+            ) : (
+              <AlertCircle className="w-4 h-4 shrink-0" />
+            )}
+            <span>{statusMessage.text}</span>
           </div>
         )}
 
-        {/* Text Tabs on Void */}
-        <div className="flex items-center gap-8 text-[13px] uppercase tracking-[0.025em] pb-4 border-b border-[#181818]">
+        {/* Floating .liquid-glass Tabs */}
+        <div className="p-2 rounded-full liquid-glass inline-flex items-center gap-2 shadow-lg">
           {[
-            { id: "groq", label: "Groq API" },
-            { id: "profile", label: "Operator Profile" },
-            { id: "system", label: "Platform Info" },
+            { id: "groq", label: "Groq LLM API", icon: Key },
+            { id: "profile", label: "Operator Profile", icon: UserCheck },
+            { id: "system", label: "Platform Info", icon: Cpu },
           ].map((tab) => {
             const isActive = activeTab === tab.id;
+            const Icon = tab.icon;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`transition-colors cursor-pointer pb-2 ${
+                className={`px-4 sm:px-5 py-2 rounded-full text-xs font-medium tracking-wide transition-all cursor-pointer flex items-center gap-2 ${
                   isActive
-                    ? "text-[#ffffff] font-semibold border-b-2 border-[#8052ff]"
-                    : "text-[#9a9a9a] hover:text-[#ffffff]"
+                    ? "bg-white/20 text-white shadow-md ring-1 ring-white/30"
+                    : "text-white/70 hover:text-white hover:bg-white/10"
                 }`}
               >
-                {tab.label}
+                <Icon className="w-3.5 h-3.5" />
+                <span>{tab.label}</span>
               </button>
             );
           })}
@@ -74,21 +89,21 @@ export default function SettingsPage() {
 
         {/* Tab 1: Groq API Key */}
         {activeTab === "groq" && (
-          <form onSubmit={handleSaveGroqKey} className="space-y-6 text-[14px]">
+          <form onSubmit={handleSaveGroqKey} className="p-6 sm:p-8 rounded-3xl liquid-glass space-y-6 shadow-2xl">
             <div className="space-y-2">
-              <span className="text-[12px] font-semibold uppercase tracking-[0.025em] text-[#ffb829] block">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-amber-300 block">
                 Official Groq Cloud
               </span>
-              <h3 className="text-[28px] font-normal text-[#ffffff]">
+              <h3 className="text-2xl font-medium tracking-tight text-white">
                 AI Medical Assistant API Key
               </h3>
-              <p className="text-[16px] font-extralight text-[#9a9a9a] leading-relaxed">
-                Connect your personal Groq API key for high-speed LLaMA 3.3 70B inference. If left empty, the platform automatically routes requests through the embedded Clinical Knowledge Engine.
+              <p className="text-xs sm:text-sm font-light text-white/70 leading-relaxed max-w-2xl">
+                Connect your personal Groq API key for ultra-fast LLaMA 3.3 70B inference. If left empty, the platform automatically routes requests through the embedded Clinical Knowledge Engine.
               </p>
             </div>
 
-            <div className="space-y-2 pt-2">
-              <label className="text-[12px] font-extralight text-[#9a9a9a] block">
+            <div className="space-y-2 pt-2 max-w-xl">
+              <label className="text-xs font-light text-white/70 block">
                 Groq API Key (gsk_...)
               </label>
               <input
@@ -96,13 +111,13 @@ export default function SettingsPage() {
                 value={customGroqKey}
                 onChange={(e) => setCustomGroqKey(e.target.value)}
                 placeholder="gsk_••••••••••••••••••••••••••••••••"
-                className="w-full px-4 py-3 rounded-[12px] bg-[#000000] border border-[#222222] text-[#ffffff] font-mono text-[14px] focus:outline-none focus:border-[#8052ff]"
+                className="w-full px-4 py-3 rounded-2xl liquid-glass text-white font-mono text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-white/40"
               />
             </div>
 
             <button
               type="submit"
-              className="bg-[#8052ff] hover:opacity-90 active:scale-95 text-[#ffffff] text-[13px] font-semibold uppercase tracking-[0.025em] rounded-[22.5px] px-6 py-3 cursor-pointer"
+              className="px-6 py-3 rounded-full liquid-glass liquid-glass-interactive text-xs font-medium text-white hover:bg-white/15 cursor-pointer shadow-lg"
             >
               Save API Key
             </button>
@@ -111,91 +126,91 @@ export default function SettingsPage() {
 
         {/* Tab 2: Profile */}
         {activeTab === "profile" && (
-          <form onSubmit={handleSaveProfile} className="space-y-6 text-[14px]">
+          <form onSubmit={handleSaveProfile} className="p-6 sm:p-8 rounded-3xl liquid-glass space-y-6 shadow-2xl">
             <div className="space-y-2">
-              <span className="text-[12px] font-semibold uppercase tracking-[0.025em] text-[#8052ff] block">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-cyan-300 block">
                 Clinical Operator
               </span>
-              <h3 className="text-[28px] font-normal text-[#ffffff]">
-                Operator Identity
+              <h3 className="text-2xl font-medium tracking-tight text-white">
+                Operator Identity & Credentials
               </h3>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 max-w-xl">
               <div>
-                <label className="text-[12px] font-extralight text-[#9a9a9a] block mb-1">
-                  Operator Name
+                <label className="text-xs font-light text-white/70 block mb-1.5">
+                  Operator Full Name
                 </label>
                 <input
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-[12px] bg-[#000000] border border-[#222222] text-[#ffffff] text-[14px] focus:outline-none focus:border-[#8052ff]"
+                  className="w-full px-4 py-3 rounded-2xl liquid-glass text-white text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-white/40"
                 />
               </div>
 
               <div>
-                <label className="text-[12px] font-extralight text-[#9a9a9a] block mb-1">
-                  Contact Number
+                <label className="text-xs font-light text-white/70 block mb-1.5">
+                  Direct Contact Number
                 </label>
                 <input
                   type="text"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
-                  className="w-full px-4 py-3 rounded-[12px] bg-[#000000] border border-[#222222] text-[#ffffff] text-[14px] focus:outline-none focus:border-[#8052ff]"
+                  className="w-full px-4 py-3 rounded-2xl liquid-glass text-white text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-white/40"
                 />
               </div>
             </div>
 
             <button
               type="submit"
-              className="bg-[#8052ff] hover:opacity-90 active:scale-95 text-[#ffffff] text-[13px] font-semibold uppercase tracking-[0.025em] rounded-[22.5px] px-6 py-3 cursor-pointer"
+              className="px-6 py-3 rounded-full liquid-glass liquid-glass-interactive text-xs font-medium text-white hover:bg-white/15 cursor-pointer shadow-lg"
             >
-              Update Profile
+              Update Profile Details
             </button>
           </form>
         )}
 
         {/* Tab 3: System Specifications */}
         {activeTab === "system" && (
-          <div className="space-y-6 text-[14px]">
+          <div className="p-6 sm:p-8 rounded-3xl liquid-glass space-y-6 shadow-2xl">
             <div className="space-y-2">
-              <span className="text-[12px] font-semibold uppercase tracking-[0.025em] text-[#15846e] block">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 block">
                 Platform Architecture
               </span>
-              <h3 className="text-[28px] font-normal text-[#ffffff]">
+              <h3 className="text-2xl font-medium tracking-tight text-white">
                 System Runtime Specifications
               </h3>
             </div>
 
-            <div className="divide-y divide-[#181818] text-[14px]">
-              <div className="py-3 flex justify-between">
-                <span className="text-[#9a9a9a]">Neural Model Engine</span>
-                <span className="text-[#ffffff]">brain_tumor_model.keras (EfficientNetB3)</span>
+            <div className="divide-y divide-white/10 text-xs sm:text-sm">
+              <div className="py-3.5 flex justify-between items-center">
+                <span className="text-white/60">Neural Model Engine</span>
+                <span className="text-white font-mono">brain_tumor_model.keras (EfficientNetB3)</span>
               </div>
-              <div className="py-3 flex justify-between">
-                <span className="text-[#9a9a9a]">Benchmark Accuracy</span>
-                <span className="text-[#ffb829] font-normal">96.24% Verified</span>
+              <div className="py-3.5 flex justify-between items-center">
+                <span className="text-white/60">Benchmark Accuracy</span>
+                <span className="text-amber-300 font-mono font-medium">96.24% Calibrated</span>
               </div>
-              <div className="py-3 flex justify-between">
-                <span className="text-[#9a9a9a]">Explainability Service</span>
-                <span className="text-[#ffffff]">TensorFlow GradientTape Grad-CAM</span>
+              <div className="py-3.5 flex justify-between items-center">
+                <span className="text-white/60">Explainability Service</span>
+                <span className="text-white font-mono">TensorFlow GradientTape Grad-CAM</span>
               </div>
-              <div className="py-3 flex justify-between">
-                <span className="text-[#9a9a9a]">Interface Theme</span>
-                <span className="text-[#8052ff]">Dala Constellation Floating on Void</span>
+              <div className="py-3.5 flex justify-between items-center">
+                <span className="text-white/60">Interface Architecture</span>
+                <span className="text-cyan-300 font-medium">Liquid Glass Translucent System</span>
               </div>
             </div>
 
             {/* Cinematic 3D Intro Replay Card */}
-            <div className="pt-6 border-t border-[#181818] space-y-3">
-              <span className="text-[12px] font-semibold uppercase tracking-[0.025em] text-[#ffb829] block">
+            <div className="pt-6 border-t border-white/10 space-y-3">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-amber-300 block">
                 Visual Experience
               </span>
-              <h4 className="text-[20px] font-normal text-[#ffffff]">
+              <h4 className="text-lg font-medium text-white">
                 Cinematic 3D Brain Intro
               </h4>
-              <p className="text-[14px] font-extralight text-[#9a9a9a] leading-relaxed">
+              <p className="text-xs sm:text-sm font-light text-white/70 leading-relaxed max-w-xl">
                 Experience the interactive 3D human brain simulation, particle bloom animation, and monumental project identity reveal.
               </p>
               <button
@@ -206,10 +221,10 @@ export default function SettingsPage() {
                   } catch {}
                   window.location.href = "/?intro=true";
                 }}
-                className="bg-[#8052ff] hover:opacity-90 active:scale-95 text-[#ffffff] text-[13px] font-semibold uppercase tracking-[0.025em] rounded-[22.5px] px-6 py-3 cursor-pointer inline-flex items-center gap-2 transition-all"
+                className="px-6 py-3 rounded-full liquid-glass liquid-glass-interactive text-xs font-medium text-white hover:bg-white/15 cursor-pointer inline-flex items-center gap-2 shadow-lg"
               >
                 <span>Replay 3D Brain Intro</span>
-                <Sparkles className="w-4 h-4 text-[#22d3ee]" />
+                <Sparkles className="w-4 h-4 text-cyan-300" />
               </button>
             </div>
           </div>

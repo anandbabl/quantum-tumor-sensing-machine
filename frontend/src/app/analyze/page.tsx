@@ -74,30 +74,30 @@ export default function AnalyzePage() {
           </div>
         </nav>
 
-        {/* Right (Desktop): Profile dropdown menu */}
-        <div className="hidden md:flex items-center">
+        {/* Right: Profile dropdown + Mobile Hamburger */}
+        <div className="flex items-center gap-2.5">
           <ProfileDropdown />
-        </div>
 
-        {/* Mobile Hamburger button */}
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle Navigation Menu"
-          className="md:hidden w-10 h-10 rounded-full flex items-center justify-center liquid-glass liquid-glass-interactive text-white/90 z-50 relative cursor-pointer"
-        >
-          <div className="relative w-5 h-5 flex items-center justify-center">
-            <Menu
-              className={`w-5 h-5 absolute transition-all duration-300 ease-out transform ${
-                isMobileMenuOpen ? "opacity-0 rotate-90 scale-50" : "opacity-100 rotate-0 scale-100"
-              }`}
-            />
-            <X
-              className={`w-5 h-5 absolute transition-all duration-300 ease-out transform ${
-                isMobileMenuOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-50"
-              }`}
-            />
-          </div>
-        </button>
+          {/* Mobile Hamburger button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle Navigation Menu"
+            className="md:hidden w-10 h-10 rounded-full flex items-center justify-center liquid-glass liquid-glass-interactive text-white/90 z-50 relative cursor-pointer"
+          >
+            <div className="relative w-5 h-5 flex items-center justify-center">
+              <Menu
+                className={`w-5 h-5 absolute transition-all duration-300 ease-out transform ${
+                  isMobileMenuOpen ? "opacity-0 rotate-90 scale-50" : "opacity-100 rotate-0 scale-100"
+                }`}
+              />
+              <X
+                className={`w-5 h-5 absolute transition-all duration-300 ease-out transform ${
+                  isMobileMenuOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-50"
+                }`}
+              />
+            </div>
+          </button>
+        </div>
       </header>
 
       {/* Mobile Backdrop-blurred Overlay Menu */}
