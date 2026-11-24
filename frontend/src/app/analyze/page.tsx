@@ -38,7 +38,7 @@ export default function AnalyzePage() {
 
       {/* 2. Top Navigation Bar */}
       <header className="relative z-20 w-full max-w-7xl mx-auto px-6 pt-6 sm:pt-8 flex items-center justify-between">
-        {/* Left: Minimalist white custom SVG emblem */}
+        {/* Left: Minimalist white custom SVG emblem + Name: Quantum Tumor Sensing Machine */}
         <Link href="/" className="flex items-center gap-3 group">
           <svg
             className="w-7 h-7 sm:w-8 sm:h-8 text-white shrink-0 transition-transform duration-300 group-hover:scale-105"
@@ -57,6 +57,9 @@ export default function AnalyzePage() {
             />
             <circle cx="16" cy="16" r="2" fill="white" />
           </svg>
+          <span className="text-base sm:text-lg font-medium tracking-tight text-white whitespace-nowrap">
+            Quantum Tumor Sensing Machine
+          </span>
         </Link>
 
         {/* Center (Desktop): Floating .liquid-glass pill with links */}

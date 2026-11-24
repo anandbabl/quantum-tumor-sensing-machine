@@ -2979,16 +2979,13 @@
     .lg\:text-\[80px\] {
       font-size: 80px;
     }
-    .lg\:text-\[96px\] {
-      font-size: 96px;
-    }
     .lg\:text-\[104px\] {
       font-size: 104px;
     }
   }
   @media (width >= 80rem) {
-    .xl\:text-\[108px\] {
-      font-size: 108px;
+    .xl\:text-\[116px\] {
+      font-size: 116px;
     }
   }
 }

@@ -52,7 +52,7 @@ export default function HomePage() {
       <div className="relative z-10 w-full min-h-[100vh] flex flex-col justify-between">
         {/* Top Navigation Bar */}
         <header className="relative z-20 w-full max-w-7xl mx-auto px-6 pt-6 sm:pt-8 flex items-center justify-between">
-          {/* Left: Minimalist white custom SVG emblem */}
+          {/* Left: Minimalist white custom SVG emblem + Name: Quantum Tumor Sensing Machine */}
           <Link href="/" className="flex items-center gap-3 group">
             <svg
               className="w-7 h-7 sm:w-8 sm:h-8 text-white shrink-0 transition-transform duration-300 group-hover:scale-105"
@@ -71,6 +71,9 @@ export default function HomePage() {
               />
               <circle cx="16" cy="16" r="2" fill="white" />
             </svg>
+            <span className="text-base sm:text-lg font-medium tracking-tight text-white whitespace-nowrap">
+              Quantum Tumor Sensing Machine
+            </span>
           </Link>
 
           {/* Center (Desktop): Floating .liquid-glass pill with links */}
@@ -164,14 +167,14 @@ export default function HomePage() {
 
         {/* Hero Content */}
         <main className="relative z-10 w-full max-w-5xl mx-auto px-6 flex-1 flex flex-col items-center justify-center text-center my-auto py-8">
-          {/* Headline: Quantum Tumor Sensing Machine in ultra-large, tight-tracking typography (-0.05em) */}
-          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[96px] xl:text-[108px] font-medium leading-[0.93] tracking-[-0.05em] text-white max-w-5xl mb-6">
-            Quantum Tumor<br />Sensing Machine
+          {/* Headline: <h1>Heal Your Body<br/>Naturally</h1> in ultra-large, tight-tracking typography (-0.05em) */}
+          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[104px] xl:text-[116px] font-medium leading-[0.93] tracking-[-0.05em] text-white max-w-5xl mb-6">
+            Heal Your Body<br />Naturally
           </h1>
 
-          {/* Subtitle */}
+          {/* Subtitle: "Holistic wellness. Transformative results." */}
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-light text-white/80 max-w-xl mx-auto mb-8 sm:mb-10 tracking-tight">
-            Intelligent Brain MRI Analysis & Neural Diagnostic Suite.
+            Holistic wellness. Transformative results.
           </p>
 
           {/* CTA: .liquid-glass rounded button reading "Begin Your Journey" */}
