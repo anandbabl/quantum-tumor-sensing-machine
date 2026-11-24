@@ -192,13 +192,13 @@ export default function AIAssistantPanel({
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-[#181818]">
+      <div className="flex items-center justify-between pb-3 border-b border-white/10">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-[#8052ff]" />
-          <span className="text-[14px] font-semibold uppercase tracking-[0.025em] text-[#ffffff]">
+          <Sparkles className="w-4 h-4 text-cyan-300" />
+          <span className="text-xs sm:text-sm font-medium tracking-wide text-white">
             AI Clinical Assistant
           </span>
-          <span className="text-[11px] font-mono text-[#ffb829] px-2 py-0.5 rounded-full bg-white/5 border border-white/10">
+          <span className="text-[11px] font-mono text-cyan-300 px-2.5 py-0.5 rounded-full liquid-glass border border-cyan-400/20">
             Groq LLaMA 3.3
           </span>
         </div>
@@ -206,24 +206,24 @@ export default function AIAssistantPanel({
         <button
           onClick={clearChat}
           title="Clear Conversation"
-          className="text-[#9a9a9a] hover:text-[#ffffff] transition-colors p-1 cursor-pointer"
+          className="text-white/60 hover:text-white transition-colors p-1.5 rounded-full hover:bg-white/10 cursor-pointer"
         >
           <Trash2 className="w-3.5 h-3.5" />
         </button>
       </div>
 
       {/* Messages Stream */}
-      <div className="space-y-4 max-h-[460px] overflow-y-auto pr-2">
+      <div className="space-y-3.5 max-h-[460px] overflow-y-auto pr-2">
         {messages.map((m) => (
           <div
             key={m.id}
             className={`flex flex-col ${m.role === "user" ? "items-end" : "items-start"}`}
           >
             <div
-              className={`max-w-[88%] rounded-[20px] px-5 py-3.5 text-[14px] leading-relaxed ${
+              className={`max-w-[92%] rounded-2xl px-5 py-3.5 text-xs sm:text-sm leading-relaxed liquid-glass shadow-lg ${
                 m.role === "user"
-                  ? "bg-[#8052ff] text-[#ffffff] font-normal"
-                  : "bg-[#080808] border border-[#222222] text-[#ffffff] font-extralight"
+                  ? "bg-white/15 text-white font-medium border border-white/20"
+                  : "text-white/90 font-light border border-white/10"
               }`}
             >
               {m.role === "user" ? (
@@ -232,7 +232,7 @@ export default function AIAssistantPanel({
                 <MarkdownRenderer content={m.content} />
               )}
 
-              <div className="flex items-center justify-between gap-4 mt-2 pt-1.5 border-t border-white/10 text-[11px] text-[#9a9a9a]">
+              <div className="flex items-center justify-between gap-4 mt-2 pt-1.5 border-t border-white/10 text-[11px] text-white/50">
                 <span>{m.timestamp}</span>
                 {m.role === "assistant" && (
                   <div className="flex items-center gap-3">
@@ -251,7 +251,7 @@ export default function AIAssistantPanel({
                       title="Copy response"
                     >
                       {copiedId === m.id ? (
-                        <Check className="w-3 h-3 text-[#ffb829]" />
+                        <Check className="w-3 h-3 text-cyan-300" />
                       ) : (
                         <Copy className="w-3 h-3" />
                       )}
@@ -265,8 +265,8 @@ export default function AIAssistantPanel({
         ))}
 
         {isLoading && (
-          <div className="text-[13px] font-extralight text-[#ffb829] flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#ffb829] animate-ping" />
+          <div className="text-xs font-light text-cyan-300 flex items-center gap-2 p-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
             <span>Consulting clinical neural weights...</span>
           </div>
         )}
@@ -274,12 +274,12 @@ export default function AIAssistantPanel({
       </div>
 
       {/* Suggested Questions */}
-      <div className="flex gap-2 overflow-x-auto py-1 scrollbar-none text-[12px]">
+      <div className="flex gap-2 overflow-x-auto py-1 scrollbar-none text-xs">
         {suggestedQuestions.map((q, idx) => (
           <button
             key={idx}
             onClick={() => handleSendMessage(q)}
-            className="px-3.5 py-1.5 rounded-full bg-[#000000] border border-[#222222] text-[#9a9a9a] hover:text-[#ffffff] hover:border-[#8052ff] whitespace-nowrap transition-colors cursor-pointer"
+            className="px-3.5 py-1.5 rounded-full liquid-glass liquid-glass-interactive text-white/70 hover:text-white whitespace-nowrap transition-all cursor-pointer shadow-sm text-[11px]"
           >
             {q}
           </button>
@@ -292,21 +292,21 @@ export default function AIAssistantPanel({
           e.preventDefault();
           handleSendMessage();
         }}
-        className="flex items-center gap-3 pt-2"
+        className="flex items-center gap-2.5 pt-2"
       >
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask anything about MRI findings, glioma, meningioma, or treatments..."
-          className="flex-1 px-4 py-3 rounded-[22.5px] bg-[#000000] border border-[#222222] text-[#ffffff] placeholder-[#666666] text-[14px] focus:outline-none focus:border-[#8052ff] transition-colors"
+          className="flex-1 px-4 py-3 rounded-full liquid-glass text-white placeholder-white/40 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-white/30 transition-all"
         />
         <button
           type="submit"
           disabled={!input.trim() || isLoading}
-          className="bg-[#8052ff] hover:opacity-90 active:scale-95 disabled:opacity-40 text-[#ffffff] rounded-full p-3 transition-all shrink-0 cursor-pointer"
+          className="liquid-glass liquid-glass-interactive hover:bg-white/15 active:scale-95 disabled:opacity-40 text-white rounded-full p-3 transition-all shrink-0 cursor-pointer shadow-md"
         >
-          <Send className="w-4 h-4" />
+          <Send className="w-4 h-4 text-cyan-300" />
         </button>
       </form>
     </div>

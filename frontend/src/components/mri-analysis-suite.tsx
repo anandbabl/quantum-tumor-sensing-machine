@@ -236,8 +236,8 @@ export default function MRIAnalysisSuite({
                     className="w-full h-full object-contain rounded-xl"
                   />
                   {isScanning && (
-                    <div className="absolute inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center rounded-2xl">
-                      <span className="text-xs font-mono uppercase tracking-wider text-cyan-300 flex items-center gap-2 bg-black/70 px-4 py-2 rounded-full border border-cyan-400/30">
+                    <div className="absolute inset-0 liquid-glass backdrop-blur-sm flex items-center justify-center rounded-2xl">
+                      <span className="text-xs font-mono uppercase tracking-wider text-cyan-300 flex items-center gap-2 liquid-glass px-4 py-2 rounded-full border border-cyan-400/30 shadow-lg">
                         <Activity className="w-4 h-4 animate-spin text-cyan-400" />
                         <span>Scanning In Progress</span>
                       </span>
@@ -342,13 +342,13 @@ export default function MRIAnalysisSuite({
               value={selectedPatientId}
               onChange={(e) => setSelectedPatientId(e.target.value)}
               disabled={isScanning}
-              className="w-full px-4 py-2.5 rounded-xl liquid-glass border border-white/15 text-white text-xs focus:outline-none focus:border-white/40 disabled:opacity-50 cursor-pointer bg-black/60"
+              className="w-full px-4 py-2.5 rounded-xl liquid-glass border border-white/15 text-white text-xs focus:outline-none focus:border-white/40 disabled:opacity-50 cursor-pointer"
             >
-              <option value="" className="bg-neutral-900 text-white/80">
+              <option value="" className="bg-[#121218] text-white/80">
                 De-identified / Anonymous Subject
               </option>
               {patients.map((p) => (
-                <option key={p.id} value={p.id} className="bg-neutral-900 text-white">
+                <option key={p.id} value={p.id} className="bg-[#121218] text-white">
                   {p.name} ({p.patient_code})
                 </option>
               ))}
