@@ -69,35 +69,6 @@ export default function WorkspaceLayout({
           {children}
         </div>
       </main>
-
-      {/* Dala Minimalist Void Footer */}
-      {!hideDefaultFooter && (
-        <footer className="w-full bg-[#000000] border-t border-[#141414] py-12 text-[#9a9a9a] text-[14px]">
-          <div className="max-w-[1280px] mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-3">
-              <span className="text-[#ffffff] font-normal uppercase tracking-[0.025em]">
-                QUANTUM TUMOR SENSING MACHINE
-              </span>
-              <span className="text-[#ffb829] text-[12px] uppercase tracking-wider font-semibold">
-                EFFICIENTNETB3 • 96.24%
-              </span>
-            </div>
-
-            <div className="flex items-center gap-8 text-[13px] uppercase tracking-[0.025em]">
-              <Link href="/research" className="hover:text-[#ffffff] transition-colors">
-                Research
-              </Link>
-              <Link href="/performance" className="hover:text-[#ffffff] transition-colors">
-                Benchmark
-              </Link>
-              <Link href="/analyze" className="hover:text-[#ffffff] transition-colors">
-                Analyze
-              </Link>
-              <span className="text-[#666666]">2026 Medical AI</span>
-            </div>
-          </div>
-        </footer>
-      )}
     </div>
   );
 }
