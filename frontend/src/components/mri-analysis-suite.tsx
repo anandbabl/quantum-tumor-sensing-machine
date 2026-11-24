@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ImageManipulator from "@/components/image-manipulator";
 import MRIScanner from "@/components/mri-scanner";
-import NeuralBrainCanvas from "@/components/neural-brain-canvas";
 import AIAssistantPanel from "@/components/ai-assistant-panel";
 import { apiRequest, getAssetUrl, getApiUrl } from "@/lib/api";
 import { MRIScan, Prediction, Patient } from "@/types";
@@ -526,20 +525,58 @@ export default function MRIAnalysisSuite({
                 />
               </div>
             </div>
-          ) : (
-            /* Idle Screen: 3D Interactive Brain Constellation */
-            <div className="w-full h-full min-h-[540px] rounded-3xl liquid-glass relative overflow-hidden flex flex-col items-center justify-center shadow-xl">
-              <div className="absolute inset-0 z-0">
-                <NeuralBrainCanvas />
+          ) : previewUrl ? (
+            /* Selected Slice Ready for Analysis View */
+            <div className="w-full h-full min-h-[540px] rounded-3xl liquid-glass p-8 flex flex-col items-center justify-center text-center space-y-6">
+              <div className="relative max-w-sm w-full aspect-square rounded-2xl overflow-hidden liquid-glass border border-white/20 p-2 shadow-2xl flex items-center justify-center">
+                <img
+                  src={previewUrl}
+                  alt="Selected MRI Scan"
+                  className="w-full h-full object-contain rounded-xl"
+                />
               </div>
-              <div className="absolute bottom-6 inset-x-6 text-center pointer-events-none z-10 space-y-2">
-                <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-cyan-300 liquid-glass px-4 py-2 rounded-full inline-flex items-center gap-2 shadow-lg">
-                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                  <span>Interactive 3D Brain Constellation Active</span>
-                </span>
-                <p className="text-xs font-light text-white/70">
-                  Select a sample slice or upload a cranial scan on the left, then click Analyze MRI Scan
+              <div className="space-y-2 max-w-md">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-glass text-xs text-cyan-300">
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>MRI Slice Loaded & Ready for Neural Inference</span>
+                </div>
+                <p className="text-xs text-white/70 font-light">
+                  Click below to run deep convolutional classification and Grad-CAM spatial heatmap extraction.
                 </p>
+              </div>
+              <button
+                onClick={handleStartAnalysis}
+                disabled={isUploading || isScanning}
+                className="px-8 py-3.5 rounded-full liquid-glass liquid-glass-interactive text-sm font-medium tracking-wide text-white bg-white/10 hover:bg-white/20 transition-all flex items-center gap-2 cursor-pointer shadow-lg"
+              >
+                <Sparkles className="w-4 h-4 text-amber-300" />
+                <span>Analyze MRI Scan</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            /* Clean Minimalist Awaiting Ingestion State */
+            <div className="w-full h-full min-h-[540px] rounded-3xl liquid-glass p-10 flex flex-col items-center justify-center text-center space-y-6">
+              <div className="w-20 h-20 rounded-full liquid-glass flex items-center justify-center text-white/80 shadow-inner">
+                <Brain className="w-10 h-10 stroke-[1.2] text-white/90" />
+              </div>
+              <div className="space-y-2 max-w-sm">
+                <h4 className="text-lg font-medium text-white tracking-tight">
+                  Awaiting Cranial MRI Scan
+                </h4>
+                <p className="text-xs text-white/60 font-light leading-relaxed">
+                  Select one of the 1-click evaluation test samples or drop a cranial slice on the left to begin inference.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-3 max-w-sm w-full pt-2 text-[11px] text-white/70">
+                <div className="p-3 rounded-2xl liquid-glass flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>96.24% EfficientNetB3</span>
+                </div>
+                <div className="p-3 rounded-2xl liquid-glass flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <span>Grad-CAM Explainability</span>
+                </div>
               </div>
             </div>
           )}
