@@ -167,9 +167,9 @@ export default function HomePage() {
 
         {/* Hero Content */}
         <main className="relative z-10 w-full max-w-5xl mx-auto px-6 flex-1 flex flex-col items-center justify-center text-center my-auto py-8">
-          {/* Headline: <h1>Heal Your Body<br/>Naturally</h1> in ultra-large, tight-tracking typography (-0.05em) */}
-          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[104px] xl:text-[116px] font-medium leading-[0.93] tracking-[-0.05em] text-white max-w-5xl mb-6">
-            Heal Your Body<br />Naturally
+          {/* Headline: Quantum Tumor Sensing Machine in ultra-large, tight-tracking typography (-0.05em) */}
+          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[96px] xl:text-[108px] font-medium leading-[0.93] tracking-[-0.05em] text-white max-w-5xl mb-6">
+            Quantum Tumor<br />Sensing Machine
           </h1>
 
           {/* Subtitle: "Holistic wellness. Transformative results." */}
