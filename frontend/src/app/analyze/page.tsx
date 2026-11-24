@@ -6,17 +6,15 @@ import {
   CircleUserRound,
   Menu,
   X,
-  ArrowRight,
   ShieldCheck,
   Brain,
-  Clock,
-  HeartPulse
+  ArrowDown
 } from "lucide-react";
 import MRIAnalysisSuite from "@/components/mri-analysis-suite";
 
 export default function AnalyzePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeModal, setActiveModal] = useState<"approach" | "methods" | "account" | null>(null);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
 
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden flex flex-col justify-between text-white font-sans select-none bg-black">
@@ -59,9 +57,6 @@ export default function AnalyzePage() {
             />
             <circle cx="16" cy="16" r="2" fill="white" />
           </svg>
-          <span className="text-base sm:text-lg font-medium tracking-tight text-white whitespace-nowrap">
-            Vibrant Wellness
-          </span>
         </Link>
 
         {/* Center (Desktop): Floating .liquid-glass pill with links */}
@@ -72,18 +67,6 @@ export default function AnalyzePage() {
           >
             Home
           </Link>
-          <button
-            onClick={() => setActiveModal("approach")}
-            className="px-4 py-1.5 rounded-full text-xs font-normal tracking-wide text-white/70 hover:text-white transition-colors cursor-pointer"
-          >
-            Our Approach
-          </button>
-          <button
-            onClick={() => setActiveModal("methods")}
-            className="px-4 py-1.5 rounded-full text-xs font-normal tracking-wide text-white/70 hover:text-white transition-colors cursor-pointer"
-          >
-            Healing Methods
-          </button>
           <div className="px-4 py-1.5 rounded-full text-xs font-medium tracking-wide text-white bg-white/15 flex items-center gap-1.5 shadow-sm">
             <Brain className="w-3.5 h-3.5 text-cyan-300" />
             <span>Diagnostic Suite</span>
@@ -92,7 +75,7 @@ export default function AnalyzePage() {
 
         {/* Right (Desktop): Round .liquid-glass user account button */}
         <button
-          onClick={() => setActiveModal("account")}
+          onClick={() => setIsAccountOpen(true)}
           aria-label="User Account"
           className="hidden md:flex w-10 h-10 rounded-full items-center justify-center liquid-glass liquid-glass-interactive text-white/90 hover:text-white transition-transform active:scale-95 cursor-pointer"
         >
@@ -133,37 +116,19 @@ export default function AnalyzePage() {
         >
           Home
         </Link>
-        <button
-          onClick={() => {
-            setActiveModal("approach");
-            setIsMobileMenuOpen(false);
-          }}
-          className="text-xl font-light text-white/80 hover:text-white tracking-tight cursor-pointer"
-        >
-          Our Approach
-        </button>
-        <button
-          onClick={() => {
-            setActiveModal("methods");
-            setIsMobileMenuOpen(false);
-          }}
-          className="text-xl font-light text-white/80 hover:text-white tracking-tight cursor-pointer"
-        >
-          Healing Methods
-        </button>
         <div className="text-xl font-medium text-cyan-300 tracking-tight flex items-center gap-2">
           <Brain className="w-5 h-5" />
           <span>Diagnostic Suite</span>
         </div>
         <button
           onClick={() => {
-            setActiveModal("account");
+            setIsAccountOpen(true);
             setIsMobileMenuOpen(false);
           }}
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass text-sm text-white/90 mt-4 cursor-pointer"
         >
           <CircleUserRound className="w-4 h-4" />
-          <span>My Wellness Account</span>
+          <span>Diagnostic Console</span>
         </button>
       </div>
 
@@ -177,113 +142,22 @@ export default function AnalyzePage() {
       {/* 4. Footer */}
       <footer className="relative z-20 w-full max-w-7xl mx-auto px-6 pb-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50 border-t border-white/10">
         <div className="flex items-center gap-2">
-          <ShieldCheck className="w-4 h-4 text-amber-300/80" />
-          <span>Vibrant Wellness Neural Diagnostics • Decision-Support Telemetry</span>
+          <ShieldCheck className="w-4 h-4 text-cyan-300/80" />
+          <span>Neural Diagnostics • Decision-Support Telemetry</span>
         </div>
         <div>
-          © 2026 Vibrant Wellness. All rights reserved.
+          © 2026 Neural Diagnostic Suite. All rights reserved.
         </div>
       </footer>
 
-      {/* ========================================================== */}
-      {/* MODALS                                                     */}
-      {/* ========================================================== */}
-      {/* 1. Our Approach Modal */}
-      {activeModal === "approach" && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-md">
-          <div className="relative w-full max-w-lg rounded-3xl p-8 liquid-glass text-left space-y-6">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
-              <span className="text-xs font-mono uppercase tracking-widest text-white/60">Philosophy & Care</span>
-              <button
-                onClick={() => setActiveModal(null)}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white bg-white/5 cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            <div className="space-y-3">
-              <h2 className="text-3xl font-medium tracking-tight text-white">Our Approach</h2>
-              <p className="text-sm font-light text-white/80 leading-relaxed">
-                At Vibrant Wellness, we harmonize biological precision with holistic restorative therapies. Our personalized clinical pathways restore vitality through whole-body alignment.
-              </p>
-            </div>
-            <div className="space-y-2.5 pt-2">
-              <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 flex items-center gap-3">
-                <HeartPulse className="w-5 h-5 text-emerald-400 shrink-0" />
-                <span className="text-xs text-white/90">Deep Cellular Rest & Nervous System Reset</span>
-              </div>
-              <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 flex items-center gap-3">
-                <Brain className="w-5 h-5 text-cyan-400 shrink-0" />
-                <span className="text-xs text-white/90">AI-Assisted Neural Wellness Diagnostics</span>
-              </div>
-            </div>
-            <button
-              onClick={() => setActiveModal(null)}
-              className="w-full py-3.5 rounded-full liquid-glass liquid-glass-interactive text-sm font-medium text-white hover:bg-white/10 cursor-pointer flex items-center justify-center gap-2"
-            >
-              <span>Continue Diagnostic Analysis</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* 2. Healing Methods Modal */}
-      {activeModal === "methods" && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-md">
-          <div className="relative w-full max-w-lg rounded-3xl p-8 liquid-glass text-left space-y-6">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
-              <span className="text-xs font-mono uppercase tracking-widest text-white/60">Modalities & Sessions</span>
-              <button
-                onClick={() => setActiveModal(null)}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white bg-white/5 cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            <div className="space-y-3">
-              <h2 className="text-3xl font-medium tracking-tight text-white">Healing Methods</h2>
-              <p className="text-sm font-light text-white/80 leading-relaxed">
-                Personalized modalities designed to release somatic tension and stimulate innate regenerative recovery.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-3 pt-1">
-              <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 space-y-1">
-                <span className="text-xs font-medium text-white block">Acoustic Sound</span>
-                <span className="text-[11px] text-white/60 font-light">432Hz harmonic cellular tuning</span>
-              </div>
-              <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 space-y-1">
-                <span className="text-xs font-medium text-white block">Botanical Somatics</span>
-                <span className="text-[11px] text-white/60 font-light">Plant medicine & adaptogens</span>
-              </div>
-              <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 space-y-1">
-                <span className="text-xs font-medium text-white block">Somatic Breathwork</span>
-                <span className="text-[11px] text-white/60 font-light">Vagus nerve nervous regulation</span>
-              </div>
-              <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 space-y-1">
-                <span className="text-xs font-medium text-white block">Quantum Sensing</span>
-                <span className="text-[11px] text-white/60 font-light">Deep neurological resonance</span>
-              </div>
-            </div>
-            <button
-              onClick={() => setActiveModal(null)}
-              className="w-full py-3.5 rounded-full liquid-glass liquid-glass-interactive text-sm font-medium text-white hover:bg-white/10 cursor-pointer flex items-center justify-center gap-2"
-            >
-              <span>Back to Analysis</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* 3. Account Modal */}
-      {activeModal === "account" && (
+      {/* Modal: Account / Diagnostic Overview */}
+      {isAccountOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-md">
           <div className="relative w-full max-w-md rounded-3xl p-8 liquid-glass text-left space-y-6">
             <div className="flex items-center justify-between pb-4 border-b border-white/10">
-              <span className="text-xs font-mono uppercase tracking-widest text-white/60">Member Account</span>
+              <span className="text-xs font-mono uppercase tracking-widest text-white/60">Console Access</span>
               <button
-                onClick={() => setActiveModal(null)}
+                onClick={() => setIsAccountOpen(false)}
                 className="w-8 h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white bg-white/5 cursor-pointer"
               >
                 <X className="w-4 h-4" />
@@ -294,26 +168,16 @@ export default function AnalyzePage() {
                 <CircleUserRound className="w-8 h-8 stroke-[1.5]" />
               </div>
               <div>
-                <h3 className="text-lg font-medium text-white">Vibrant Member</h3>
-                <span className="text-xs text-white/60">Active Holistic Journey</span>
-              </div>
-            </div>
-            <div className="space-y-2.5">
-              <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 flex justify-between items-center text-xs">
-                <span className="text-white/70">Next Consultation:</span>
-                <span className="text-white font-medium">Within 48 Hours</span>
-              </div>
-              <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 flex justify-between items-center text-xs">
-                <span className="text-white/70">Completed Sessions:</span>
-                <span className="text-white font-medium">4 Healing Sessions</span>
+                <h3 className="text-lg font-medium text-white">Clinical Operator</h3>
+                <span className="text-xs text-white/60">Neural Telemetry Ready</span>
               </div>
             </div>
             <div className="space-y-2">
               <button
-                onClick={() => setActiveModal(null)}
+                onClick={() => setIsAccountOpen(false)}
                 className="w-full py-3 rounded-full liquid-glass liquid-glass-interactive text-xs font-medium text-white hover:bg-white/10 flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>Close Window</span>
+                <span>Back to Workspace</span>
               </button>
             </div>
           </div>

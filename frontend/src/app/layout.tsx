@@ -4,8 +4,8 @@ import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
 
 export const metadata: Metadata = {
-  title: "Vibrant Wellness — Heal Your Body Naturally",
-  description: "Holistic wellness brand Vibrant Wellness. Transformative results, initial consultations within 48 hours, personalized healing sessions.",
+  title: "Heal Your Body Naturally — Neural Diagnostics",
+  description: "Intelligent brain MRI analysis, EfficientNetB3 deep learning tumor classification, and Grad-CAM spatial explainability.",
 };
 
 export default function RootLayout({
