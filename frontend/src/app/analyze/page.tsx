@@ -3,18 +3,16 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import {
-  CircleUserRound,
   Menu,
   X,
   ShieldCheck,
-  Brain,
-  ArrowDown
+  Brain
 } from "lucide-react";
 import MRIAnalysisSuite from "@/components/mri-analysis-suite";
+import ProfileDropdown from "@/components/profile-dropdown";
 
 export default function AnalyzePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isAccountOpen, setIsAccountOpen] = useState(false);
 
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden flex flex-col justify-between text-white font-sans select-none bg-black">
@@ -76,14 +74,10 @@ export default function AnalyzePage() {
           </div>
         </nav>
 
-        {/* Right (Desktop): Round .liquid-glass user account button */}
-        <button
-          onClick={() => setIsAccountOpen(true)}
-          aria-label="User Account"
-          className="hidden md:flex w-10 h-10 rounded-full items-center justify-center liquid-glass liquid-glass-interactive text-white/90 hover:text-white transition-transform active:scale-95 cursor-pointer"
-        >
-          <CircleUserRound className="w-5 h-5 stroke-[1.5]" />
-        </button>
+        {/* Right (Desktop): Profile dropdown menu */}
+        <div className="hidden md:flex items-center">
+          <ProfileDropdown />
+        </div>
 
         {/* Mobile Hamburger button */}
         <button
@@ -123,16 +117,27 @@ export default function AnalyzePage() {
           <Brain className="w-5 h-5" />
           <span>Diagnostic Suite</span>
         </div>
-        <button
-          onClick={() => {
-            setIsAccountOpen(true);
-            setIsMobileMenuOpen(false);
-          }}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass text-sm text-white/90 mt-4 cursor-pointer"
+        <Link
+          href="/history"
+          className="text-xl font-light text-white/80 hover:text-white tracking-tight"
+          onClick={() => setIsMobileMenuOpen(false)}
         >
-          <CircleUserRound className="w-4 h-4" />
-          <span>Diagnostic Console</span>
-        </button>
+          History
+        </Link>
+        <Link
+          href="/reports"
+          className="text-xl font-light text-white/80 hover:text-white tracking-tight"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          Reports
+        </Link>
+        <Link
+          href="/settings"
+          className="text-xl font-light text-white/80 hover:text-white tracking-tight"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          Settings
+        </Link>
       </div>
 
       {/* 3. Main Clinical Analysis Workspace */}
@@ -152,40 +157,6 @@ export default function AnalyzePage() {
           © 2026 Neural Diagnostic Suite. All rights reserved.
         </div>
       </footer>
-
-      {/* Modal: Account / Diagnostic Overview */}
-      {isAccountOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-md">
-          <div className="relative w-full max-w-md rounded-3xl p-8 liquid-glass text-left space-y-6">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
-              <span className="text-xs font-mono uppercase tracking-widest text-white/60">Console Access</span>
-              <button
-                onClick={() => setIsAccountOpen(false)}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white bg-white/5 cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-full liquid-glass flex items-center justify-center text-white">
-                <CircleUserRound className="w-8 h-8 stroke-[1.5]" />
-              </div>
-              <div>
-                <h3 className="text-lg font-medium text-white">Clinical Operator</h3>
-                <span className="text-xs text-white/60">Neural Telemetry Ready</span>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <button
-                onClick={() => setIsAccountOpen(false)}
-                className="w-full py-3 rounded-full liquid-glass liquid-glass-interactive text-xs font-medium text-white hover:bg-white/10 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <span>Back to Workspace</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
